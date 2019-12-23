@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AnalogClock.HW</title>
+    <link href="https://fonts.googleapis.com/css?family=Calistoga&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/fontawesome/all.css">
+
+
+    <style>
+        body {
+            margin: 0;
+            background:url('back.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 100vh;
+        
+        }
+    
+
+        .bigcircle {
+            width: 400px;
+            height: 400px;
+            background-color:transparent;
+            border-radius: 400px;
+            border: 2px solid purple;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .circle {
+            width: 300px;
+            height: 300px;
+            background-image: url('clock.png');
+            border-radius: 300px;
+            border: 2px solid purple;
+            position: relative;
+
+
+            /* border: 1rem solid purple; */
+
+        }
+
+        .hour {
+            /*時針*/
+            width: 16px;
+            height: 300px;
+            background: url("hhh.png");
+            position: absolute;
+            left: 50%;
+            margin-left: -8px;
+            animation: jh 43200s infinite linear;
+
+        }
+
+        .min {
+            /*分針*/
+            width: 16px;
+            height: 300px;
+            background: url("mmm.png");
+            position: absolute;
+            left: 50%;
+            margin-left: -8px;
+            animation: jm 3600s infinite linear;
+
+        }
+
+        .sec {
+            /*秒針*/
+            width: 16px;
+            height: 300px;
+            background: url("sss.png");
+            position: absolute;
+            left: 50%;
+            margin-left: -8px;
+            animation: js 60s infinite linear;
+        }
+
+        #date {
+            text-align: center;
+            line-height: 20px;
+            /* width: 40px;
+            height: 20px; */
+            position: absolute;
+            right: 15%;
+            top: 43%;
+            font-family: 'Calistoga', cursive;
+        }
+
+        #day {
+            text-align: center;
+            line-height: 20px;
+            /* width: 40px;
+            height: 20px; */
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            font-family: 'Calistoga', cursive;
+            box-shadow: 0px 0px 15px yellow;
+        }
+        .star{
+            height: 400px;
+            position: absolute;
+            top:0%;
+            animation: star 60s infinite linear 
+            
+        }
+        @keyframes star {
+            from{
+                transform: rotate(30deg);
+
+            }
+            to{
+                transform: rotate(390deg);
+
+            }
+            
+        }
+        
+        .star1{
+            height: 400px;
+            position: absolute;
+            top:0%;
+            animation: star1 60s infinite linear 
+            
+        }
+        @keyframes star1 {
+            from{
+                transform: rotate(0deg);
+
+            }
+            to{
+                transform: rotate(360deg);
+
+            }
+            
+        }
+        
+    </style>
+    <script>
+        var time = new Date();
+        var ps = time.getSeconds();
+        var pm = time.getMinutes();
+        var ph = time.getHours();
+        var x = ps * 6;
+        var y = pm * 6 + ps * 0.1;
+        var z = ph * 30 + pm * 0.5;
+
+        document.write(`
+        <style>            
+        @keyframes js {
+            from {transform: rotate(${x}deg);}
+            to {transform: rotate(${360 + x}deg);}
+        }
+        @keyframes jm {
+            from {transform: rotate(${y}deg);}
+            to {transform: rotate(${360 + y}deg);}
+        }
+        @keyframes jh {
+            from {transform: rotate(${z}deg);}
+            to {transform: rotate(${360 + z}deg);}
+        }
+        </style>        
+        `);
+       ;
+    </script>
+
+</head>
+
+<body>
+
+    <div>
+        <div class=box>
+        <div class="bigcircle">
+            <div class="star1"><img src="wennie.png" alt=""></div> 
+            <div class="star"><img src="bee.png" alt=""></div> 
+            <div class="circle">               
+                <div class="hour"></div>
+                <div class="min"></div>
+                <div class="sec"></div>
+                <div id="date"><br>12</div>
+                <div id="day"><br>MON</div>    
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <script>
+        var day = ["SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT"];
+
+        function c0(num) {
+            return num < 10 ? "0" + num : num;
+        }
+
+        function runtime() {
+            let nt = new Date();
+
+            let nday = nt.getDay(),
+                ndate = nt.getDate();
+            // console.log(nday);
+            document.getElementById("date").textContent = `
+            ${c0(ndate)} 
+            `;
+            document.getElementById("day").textContent = `
+            ${day[nday]}        
+        `;
+
+        }
+        runtime();
+    </script>
+
+
+</body>
+
+</html>
